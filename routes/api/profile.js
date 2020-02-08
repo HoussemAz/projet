@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
-
+const isEmpty = require('lodash').isEmpty;
 const Profile = require('../../models/profile');
 const User = require('../../models/User');
+const Event = require('../../models/Event');
 
+// get users profile
 router.get('/me', auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({
@@ -21,32 +23,40 @@ router.get('/me', auth, async (req, res) => {
   }
 });
 
+// Create or Update user profile
 router.post('/', auth, async (req, res) => {
   const { phone, adresse, youtube, facebook, instagram, twitter } = req.body;
-
+  // build profile object
   const profileFileds = {};
   profileFileds.user = req.user.id;
   if (phone) profileFileds.phone = phone;
   if (adresse) profileFileds.adresse = adresse;
-
-  profileFileds.social = {};
-  if (youtube) profileFileds.social.youtube = youtube;
-  if (facebook) profileFileds.social.facebook = facebook;
-  if (instagram) profileFileds.social.instagram = instagram;
-  if (twitter) profileFileds.social.twitter = twitter;
+  //build social object
+  socialFields = {};
+  if (youtube) socialFields.youtube = youtube;
+  if (facebook) socialFields.facebook = facebook;
+  if (instagram) socialFields.instagram = instagram;
+  if (twitter) socialFields.twitter = twitter;
 
   try {
     let profile = await Profile.findOne({ user: req.user.id });
-
     if (profile) {
+      //update
+      if (!isEmpty(socialFields)) {
+        profileFileds.social = [...profile.social, socialFields];
+      }
       profile = await Profile.findOneAndUpdate(
         { user: req.user.id },
         { $set: profileFileds },
         { new: true }
       );
+      console.log('update');
 
       return res.json(profile);
     }
+    //create
+    console.log('create');
+    profileFileds.social = [socialFields];
     profile = new Profile(profileFileds);
     const addRes = await profile.save();
 
@@ -57,6 +67,7 @@ router.post('/', auth, async (req, res) => {
   }
 });
 
+// Get all profiles
 router.get('/', async (req, res) => {
   try {
     const profiles = await Profile.find().populate('user', [
@@ -75,6 +86,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+//get profile by user ID
 router.get('/user/:user_id', async (req, res) => {
   try {
     const profile = await Profile.findOne({
@@ -93,6 +105,7 @@ router.get('/user/:user_id', async (req, res) => {
   }
 });
 
+//Delete profile
 router.delete('/', auth, async (req, res) => {
   try {
     await Profile.findOneAndRemove({
@@ -100,6 +113,34 @@ router.delete('/', auth, async (req, res) => {
     });
 
     res.json({ msg: 'Profile deleted' });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+//Delete event
+router.delete('/', auth, async (req, res) => {
+  try {
+    await Event.deleteMany({
+      user: req.user.id
+    });
+
+    res.json({ msg: 'Event deleted' });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+//Delete user
+router.delete('/', auth, async (req, res) => {
+  try {
+    await User.findOneAndRemove({
+      _id: req.user.id
+    });
+
+    res.json({ msg: 'User deleted' });
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server Error');

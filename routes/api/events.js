@@ -7,85 +7,6 @@ const Event = require('../../models/Event');
 // const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
-// router.post(
-//   '/',
-
-//   [
-//     auth,
-//     [
-//       check('eventName', 'Event Name is required')
-//         .not()
-//         .isEmpty(),
-//       check('description', 'Description is required')
-//         .not()
-//         .isEmpty(),
-//       check('poster', 'Poster is required')
-//         .not()
-//         .isEmpty(),
-//       check('dateDebut', 'Date Debut is required')
-//         .not()
-//         .isEmpty(),
-//       check('location', 'Location is required')
-//         .not()
-//         .isEmpty(),
-//       check('prix', 'Prix is required')
-//         .not()
-//         .isEmpty()
-//     ]
-//   ],
-
-//   async (req, res) => {
-//     const errors = await validationResult(req);
-//     if (!errors.isEmpty()) {
-//       return res.status(400).json({ errors: errors.array() });
-//     }
-
-//     const {
-//       description,
-//       dateDebut,
-//       eventName,
-//       poster,
-//       location,
-//       prix,
-//       ticket,
-//       dateFin
-//     } = req.body;
-
-//     eventFileds = {};
-//     if (description) eventFileds.description = description;
-//     if (dateDebut) eventFileds.dateDebut = dateDebut;
-//     if (eventName) eventFileds.eventName = eventName;
-//     if (poster) eventFileds.poster = poster;
-//     if (location) eventFileds.location = location;
-//     if (ticket) eventFileds.ticket = ticket;
-//     if (dateFin) eventFileds.dateFin = dateFin;
-//     if (prix) eventFileds.prix = prix;
-
-//     try {
-//       let event = await Event.findOne({ user: req.user.id });
-
-//       if (event) {
-//         event = await Event.findOneAndUpdate(
-//           { user: req.user.id },
-//           { $set: eventFileds },
-//           { new: true }
-//         );
-
-//         return res.json(event);
-//       }
-//       event = new Event(eventFileds);
-//       const addRes = await event.save();
-
-//       res.json(addRes);
-//     } catch (error) {
-//       console.error(error.message);
-//       res.status(500).send('Server Error');
-//     }
-//   }
-// );
-
-// ************************
-
 router.post(
   '/',
 
@@ -147,8 +68,8 @@ router.get('/', auth, async (req, res) => {
   try {
     const events = await Event.find().sort({ date: -1 });
     res.json(events);
-  } catch (err) {
-    console.error(err.message);
+  } catch (error) {
+    console.error(error.message);
     res.status(500).send('Server Error');
   }
 });
