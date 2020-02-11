@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
-import Search from '../../components/search/search';
 
 const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   const authLinks = (
@@ -39,7 +38,6 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
       </li>
     </ul>
   );
-
   return (
     <nav className='navbar'>
       <h1 className='List'>
@@ -47,7 +45,6 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
           <i className='fab fa-creative-commons-sampling' /> Eventi
         </Link>
       </h1>
-      <Search />
       {!loading && (
         <Fragment>{isAuthenticated ? authLinks : guesLinks}</Fragment>
       )}

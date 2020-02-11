@@ -64,7 +64,7 @@ router.post(
 
 // *********************
 
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const events = await Event.find().sort({ date: -1 });
     res.json(events);
@@ -74,7 +74,7 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
-router.get('/:id', auth, async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const event = await Event.findById(req.params.id);
     if (!event) {

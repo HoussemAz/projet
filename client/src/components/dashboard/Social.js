@@ -21,7 +21,7 @@ const Social = ({ social, deleteSocial }) => {
   return (
     <Fragment>
       <h2 className='my-2'>Social Network Links</h2>
-      <table className='table'>
+      <table className='table table-striped'>
         <thead>
           <tr>
             <th>
@@ -36,6 +36,7 @@ const Social = ({ social, deleteSocial }) => {
             <th className='hide-sm'>
               <i className='fab fa-twitter' />
             </th>
+            <th className='hide-sm'>Delete</th>
           </tr>
         </thead>
         <tbody>{socials}</tbody>

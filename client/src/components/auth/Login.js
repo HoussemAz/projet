@@ -3,8 +3,9 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
+import jwt_decode from 'jwt-decode';
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = ({ login, isAuthenticated, admin }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -21,9 +22,21 @@ const Login = ({ login, isAuthenticated }) => {
 
   // Redirect if logged in
 
-  if (isAuthenticated) {
+  // if (isAuthenticated) {
+  //   return <Redirect to='/dashboard' />;
+  // }
+  if (
+    isAuthenticated &&
+    jwt_decode(localStorage.getItem('token')).user.role[0] === 'admin'
+  ) {
+    return <Redirect to='/dashboardAdmin' />;
+  } else if (
+    isAuthenticated &&
+    jwt_decode(localStorage.getItem('token')).user.role[0] !== 'admin'
+  ) {
     return <Redirect to='/dashboard' />;
   }
+
   return (
     <Fragment>
       <div className='box'>
@@ -53,7 +66,7 @@ const Login = ({ login, isAuthenticated }) => {
 
           <input type='submit' className='btn btn-primary' value='Login' />
         </form>
-        <p style={{ color: '#fff' }}>
+        <p style={{ color: 'gray' }}>
           Don't have an account?<Link to='/register'> Sign Up</Link>
         </p>
       </div>
@@ -63,7 +76,8 @@ const Login = ({ login, isAuthenticated }) => {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool
+  isAuthenticated: PropTypes.bool,
+  admin: PropTypes.bool
 };
 
 const mapStateToProps = state => ({

@@ -9,12 +9,14 @@ import {
   CLEAR_PROFILE,
   ACCOUNT_DELETED
 } from '../actions/types';
+import jwt_decode from 'jwt-decode';
 
 const initialState = {
   token: localStorage.getItem('token'),
   isAuthenticated: null,
   loading: true,
-  user: null
+  user: null,
+  role: []
 };
 
 export default function(state = initialState, action) {
@@ -32,6 +34,9 @@ export default function(state = initialState, action) {
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
       localStorage.setItem('token', payload.token);
+      localStorage.setItem('role', payload.role);
+      var decoded = jwt_decode(payload.token);
+
       return {
         ...state,
         ...payload,

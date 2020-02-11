@@ -22,8 +22,7 @@ const TicketSchema = new mongoose.Schema({
   },
 
   idEvent: {
-    type: String,
-    required: true
+    type: String
   }
 });
 

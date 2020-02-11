@@ -89,7 +89,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
           </div>
           <input type='submit' className='btn btn-primary' value='Register' />
         </form>
-        <p style={{ color: '#fff' }}>
+        <p style={{ color: 'gray' }}>
           Already have an account?<Link to='/login'>Sign In</Link>
         </p>
       </div>

@@ -22,16 +22,16 @@ const Dashboard = ({
   ) : (
     <Fragment>
       <div className='profileTitel'>Dashboard</div>
-      <p className='lead'>
-        <i className='fas fa-user'></i>Welcome {user && user.First_name}
-      </p>
+      <div className='lead'>
+        <h2>Welcome {user && user.First_name}</h2>
+      </div>
 
       {profile !== null ? (
         <Fragment>
           <DashboardActions />
           <Social social={profile.social} />
 
-          <div className='my-2'>
+          <div className='dash-buttons'>
             <button className='btn btn-danger' onClick={() => deleteAccount()}>
               <i className='fas fa-user-minus'></i>Delete My Account
             </button>

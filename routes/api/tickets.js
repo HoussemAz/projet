@@ -4,7 +4,7 @@ const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
 
 const Event = require('../../models/Event');
-const User = require('../../models/User');
+// const User = require('../../models/User');
 const Ticket = require('../../models/Ticket');
 
 // router.get('/:id', auth, async (req, res) => {
@@ -23,6 +23,65 @@ const Ticket = require('../../models/Ticket');
 //   }
 // });
 
+// router.post(
+//   '/',
+
+//   [
+//     auth,
+//     [
+//       check('FirstName', 'FirstName is required')
+//         .not()
+//         .isEmpty(),
+//       check('LastName', 'LastName is required')
+//         .not()
+//         .isEmpty(),
+//       check('quantités', 'Quantités is required')
+//         .not()
+//         .isEmpty(),
+//       check('idEvent', 'Id Event is required')
+//         .not()
+//         .isEmpty()
+//     ]
+//   ],
+
+//   async (req, res) => {
+//     const errors = await validationResult(req);
+//     if (!errors.isEmpty()) {
+//       return res.status(400).json({ errors: errors.array() });
+//     }
+
+//     const { LastName, FirstName, quantités, idEvent } = req.body;
+
+//     const ticketFileds = {};
+
+//     if (idEvent) ticketFileds.idEvent = idEvent;
+//     if (LastName) ticketFileds.LastName = LastName;
+//     if (FirstName) ticketFileds.FirstName = FirstName;
+//     if (quantités) ticketFileds.quantités = quantités;
+
+//     try {
+//       let ticket = await Ticket.findOne({ user: req.user.id });
+
+//       if (ticket) {
+//         ticket = await Ticket.findOneAndUpdate(
+//           { user: req.user.id },
+//           { $set: ticketFileds },
+//           { new: true }
+//         );
+
+//         return res.json(ticket);
+//       }
+//       ticket = new Ticket(ticketFileds);
+//       const addRes = await ticket.save();
+
+//       res.json(addRes);
+//     } catch (error) {
+//       console.error(error.message);
+//       res.status(500).send('Server Error');
+//     }
+//   }
+// );
+
 router.post(
   '/',
 
@@ -35,10 +94,7 @@ router.post(
       check('LastName', 'LastName is required')
         .not()
         .isEmpty(),
-      check('quantités', 'Quantités is required')
-        .not()
-        .isEmpty(),
-      check('idEvent', 'Id Event is required')
+      check('quantités', 'quantités is required')
         .not()
         .isEmpty()
     ]
@@ -49,38 +105,25 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-
-    const { LastName, FirstName, quantités, idEvent } = req.body;
-
-    const ticketFileds = {};
-
-    if (idEvent) ticketFileds.idEvent = idEvent;
-    if (LastName) ticketFileds.LastName = LastName;
-    if (FirstName) ticketFileds.FirstName = FirstName;
-    if (quantités) ticketFileds.quantités = quantités;
-
     try {
-      let ticket = await Ticket.findOne({ user: req.user.id });
+      // *************
 
-      if (ticket) {
-        ticket = await Ticket.findOneAndUpdate(
-          { user: req.user.id },
-          { $set: ticketFileds },
-          { new: true }
-        );
+      const newTicket = new Ticket({
+        FirstName: req.body.FirstName,
+        LastName: req.body.LastName,
+        quantités: req.body.quantités
+      });
 
-        return res.json(ticket);
-      }
-      ticket = new Ticket(ticketFileds);
-      const addRes = await ticket.save();
+      const ticket = await newTicket.save();
 
-      res.json(addRes);
+      return res.json(ticket);
     } catch (error) {
       console.error(error.message);
       res.status(500).send('Server Error');
     }
   }
 );
+
 // router.get('/', auth, async (req, res) => {
 //   try {
 //     const tickets = await Ticket.find().sort({ date: -1 });

@@ -21,10 +21,7 @@
 .List a {
   text-decoration: none;
 }
-.event {
-  border: solid black;
-  height: 400px;
-}
+
 .login {
   font-family: sans-serif;
   background: url(evnt.jpg);
@@ -88,12 +85,13 @@
 } */
 .body {
   display: flex;
-  width: 70%;
+  width: 100%;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
-.card {
-  width: 300px;
-  height: 430px;
+.event {
+  width: 360px;
+  height: 320px;
   padding: 2rem 1rem;
   background: #fff;
   position: relative;
@@ -101,12 +99,13 @@
   align-items: flex-end;
   box-shadow: 0px 7px 10px rgba(0, 0, 0, 0, 0.5);
   transition: 0.5s ease-in-out;
+  margin-top: 30px;
 }
-.card:hover {
+.event:hover {
   transform: translateY(20px);
 }
 
-.card:before {
+.event:before {
   content: '';
   position: absolute;
   top: 0;
@@ -123,11 +122,11 @@
   transition: 0.5s all;
   opacity: 0;
 }
-.card:hover:before {
+.event:hover:before {
   opacity: 1;
 }
 
-.card img {
+.event img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -136,30 +135,32 @@
   left: 0;
 }
 
-.card .info {
-  position: relative;
+.event .info {
+  position: absolute;
+  top: 10px;
   z-index: 3;
   color: #fff;
+
   opacity: 0;
   transform: translateY(30px);
   transition: 05s all;
 }
 
-.card:hover .info {
+.event:hover .info {
   opacity: 1;
   transform: translateY(0px);
 }
-.card .info h4 {
+.event .info h4 {
   margin: 0;
 }
-.card .info p {
+.pp {
   letter-spacing: 1px;
   font-size: 15px;
+  font-weight: 300;
   margin-top: 8px;
-  margin-bottom: 20px;
 }
 
-.card .info .btn {
+.event .info .btn {
   text-decoration: none;
   padding: 0.5rem 1rem;
   background: #fff;
@@ -169,8 +170,10 @@
   cursor: pointer;
   transition: 0.4s ease-in-out;
 }
-
-.card .info .btn:hover {
+.infoBtn {
+  margin-top: 10px;
+}
+.event .info .btn:hover {
   box-shadow: 0px 7px 10p rgba(0, 0, 0, 0.5);
 }
 
@@ -185,7 +188,7 @@
   font-size: 40px;
   font-weight: 500px;
   letter-spacing: 8px;
-
+  padding-top: 10px;
   animation: text 3s 1;
 }
 
@@ -256,7 +259,6 @@
 .profileAvatar {
   height: 100%;
   width: 100%;
-
   position: absolute;
   bottom: 0;
   background-size: 100% 100%;
@@ -309,4 +311,94 @@
     letter-spacing: 8px;
     margin-bottom: 60px;
   }
+}
+
+.welcome {
+  font-family: sans-serif;
+  background: url(evnt.jpg);
+  background-size: cover;
+  height: 450px;
+  width: 90%;
+  padding: 50px;
+  margin: 0 auto;
+}
+
+.lead {
+  text-align: center;
+}
+.dash-buttons {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 30px;
+}
+.dash-buttons1 {
+  padding-top: 30px;
+  padding-bottom: 20px;
+}
+.profilesflex {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.card-body {
+  height: 200px;
+}
+.cardProf {
+  margin-top: 70px;
+}
+
+.inputSearch {
+  width: 500px;
+
+  padding: 10px 0;
+  color: #fff;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  border: none;
+  border-bottom: 1px solid gray;
+  outline: none;
+  background: transparent;
+}
+
+.boxevent {
+  margin-top: 60px;
+  position: absolute;
+  z-index: 5;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 550px;
+  background: rgba(0, 0, 0, 0.8);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.inputBoxevent {
+  position: relative;
+  padding-top: 5px;
+}
+.boxevent input {
+  width: 70%;
+  padding: 10px 0;
+  color: #fff;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  border: none;
+  border-bottom: 1px solid gray;
+  outline: none;
+  background: transparent;
+}
+
+.boxevent input[type='submit'] {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  background: #03a9f4;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
 }

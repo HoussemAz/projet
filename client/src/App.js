@@ -6,6 +6,7 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Alert from './components/layout/Alert';
 import Dashboard from './components/dashboard/Dashboard';
+import DashboardAdmin from './components/dashboard/DashboardAdmin';
 import CreateProfile from './components/profile-forms/CreateProfile';
 import EditProfile from './components/profile-forms/EditProfile';
 import Profiles from './components/profiles/Profiles';
@@ -13,6 +14,7 @@ import Profile from './components/profile/Profile';
 import PrivateRoute from './components/routing/PrivateRoute';
 import AddSocial from './components/profile-forms/AddSocial';
 import Events from './components/events/Events';
+import Event from './components/event/Event';
 
 // Redux
 import { Provider } from 'react-redux';
@@ -46,12 +48,18 @@ const App = () => {
             <PrivateRoute exact path='/dashboard' component={Dashboard} />
             <PrivateRoute
               exact
+              path='/dashboardAdmin'
+              component={DashboardAdmin}
+            />
+            <PrivateRoute
+              exact
               path='/create-profile'
               component={CreateProfile}
             />
             <PrivateRoute exact path='/edit-profile' component={EditProfile} />
             <PrivateRoute exact path='/add-social' component={AddSocial} />
             <PrivateRoute exact path='/events' component={Events} />
+            <PrivateRoute exact path='/events/:id' component={Event} />
           </Switch>
         </Fragment>
       </Router>
