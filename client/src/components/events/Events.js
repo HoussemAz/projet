@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import EventItem from './EventItem';
 import { getEvents } from '../../actions/event';
-import { filterbyname } from '../../actions/filter';
 import EventForm from './EventForm';
+import { filterbyname } from '../../actions/filter';
 
-const Events = ({ getEvents, filterbyname, event: { events, loading } }) => {
+const Events = ({ getEvents, event: { events, loading }, search }) => {
   useEffect(() => {
     getEvents();
   }, [getEvents]);
@@ -20,9 +20,13 @@ const Events = ({ getEvents, filterbyname, event: { events, loading } }) => {
         <h3 className='eventworld'>Welcome to Eventi</h3>
         <EventForm />
         <div className='body'>
-          {events.map(event => (
-            <EventItem event={event} />
-          ))}
+          {events
+            .filter(event =>
+              event.eventName.toLowerCase().includes(search.toLowerCase())
+            )
+            .map(event => (
+              <EventItem event={event} />
+            ))}
         </div>
       </div>
     </Fragment>
@@ -36,6 +40,7 @@ Events.propTypes = {
 };
 const mapStateToProps = state => ({
   event: state.event,
-  auth: state.auth
+  auth: state.auth,
+  search: state.filterbyname.search
 });
 export default connect(mapStateToProps, { getEvents, filterbyname })(Events);

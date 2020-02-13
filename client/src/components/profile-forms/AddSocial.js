@@ -18,46 +18,57 @@ const AddSocial = ({ addSocial, history }) => {
   return (
     <Fragment>
       <h1> Add Your Social Network</h1>
-      <form
-        onSubmit={e => {
-          e.preventDefault();
-          addSocial(formData, history);
-        }}
-      >
-        <input
-          type='text'
-          placeholder='Facebook'
-          name='facebook'
-          value={facebook}
-          onChange={e => onChange(e)}
-        />
-        <input
-          type='text'
-          placeholder='Instagram'
-          name='instagram'
-          value={instagram}
-          onChange={e => onChange(e)}
-        />
-        <input
-          type='text'
-          placeholder='Youtube'
-          name='youtube'
-          value={youtube}
-          onChange={e => onChange(e)}
-        />
-        <input
-          type='text'
-          placeholder='Twitter'
-          name='twitter'
-          value={twitter}
-          onChange={e => onChange(e)}
-        />
+      <div className='boxsocial'>
+        <form
+          className='form'
+          onSubmit={e => {
+            e.preventDefault();
+            addSocial(formData, history);
+          }}
+        >
+          <div className='inputboxsocial'>
+            <input
+              type='text'
+              placeholder='Facebook'
+              name='facebook'
+              value={facebook}
+              onChange={e => onChange(e)}
+            />
+          </div>
+          <div className='inputboxsocial'>
+            <input
+              type='text'
+              placeholder='Instagram'
+              name='instagram'
+              value={instagram}
+              onChange={e => onChange(e)}
+            />
+          </div>
+          <div className='inputsocial'>
+            <input
+              type='text'
+              placeholder='Youtube'
+              name='youtube'
+              value={youtube}
+              onChange={e => onChange(e)}
+            />
+          </div>
+          <div className='inputsocial'>
+            <input
+              type='text'
+              placeholder='Twitter'
+              name='twitter'
+              value={twitter}
+              onChange={e => onChange(e)}
+            />
+          </div>
 
-        <div>
-          <input type='submit' />
-          <Link to='/dashboard'></Link>
-        </div>
-      </form>
+          <div>
+            <input type='submit' />
+            <Link to='/dashboard'></Link>
+          </div>
+        </form>
+      </div>
     </Fragment>
   );
 };

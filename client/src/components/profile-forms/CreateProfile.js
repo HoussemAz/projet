@@ -27,12 +27,12 @@ const CreateProfile = ({ createProfile, history }) => {
 
   return (
     <Fragment>
-      <h1 className='large text-primary'>Create Your Profile</h1>
+      <h1 className='profileTitel'>Create Your Profile</h1>
       <p className='lead'>
         <i className='fas fa-user'></i>
         Let's get some information to make your profile stand out
       </p>
-      <form className='form' onSubmit={e => onSubmit(e)}>
+      <form className='editForm' onSubmit={e => onSubmit(e)}>
         <div className=' form-group'>
           <input
             type='text'

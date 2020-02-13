@@ -13,7 +13,7 @@ const EventDashboard = ({
 }) => {
   return (
     <div className='event'>
-      <img src={poster} />
+      <img src={poster} alt='...' />
       <div className='info'>
         <h4>{eventName && eventName}</h4>
 

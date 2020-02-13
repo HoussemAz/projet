@@ -10,19 +10,24 @@ import { Link } from 'react-router-dom';
 const Event = ({ getEventById, event: { event, loading }, match }) => {
   useEffect(() => {
     getEventById(match.params.id);
-  }, [getEventById]);
+  }, [getEventById, match.params.id]);
 
   return loading || event === null ? (
     <Spinner />
   ) : (
     <Fragment>
-      <Link to='/events' classeName='btn'>
-        {' '}
-        Back To Events
-      </Link>
-      <EventItem event={event} showActions={false} />
+      <div>
+        <Link to='/events'>
+          <input
+            type='button'
+            classeName='btn btn-light'
+            value='Back To Events'
+          />
+        </Link>
+        <EventItem classeName='ticketSpace' event={event} showActions={false} />
 
-      <Ticket />
+        <Ticket />
+      </div>
     </Fragment>
   );
 };

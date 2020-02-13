@@ -5,15 +5,17 @@ import PropTypes from 'prop-types';
 import EventDashboard from '../events/EventDashboard';
 import Spinner from '../layout/Spinner';
 import { getEvents } from '../../actions/event';
+import { filterbyname } from '../../actions/filter';
 
 const Landing = ({
   isAuthenticated,
   getEvents,
+  search,
   event: { events, loading }
 }) => {
   useEffect(() => {
     getEvents();
-  }, []);
+  }, [getEvents]);
 
   if (isAuthenticated) {
     return <Redirect to='/dashboard' />;
@@ -59,7 +61,12 @@ const Landing = ({
               </div>
             </div>
             <div className='body'>
-              {events && events.map(event => <EventDashboard {...event} />)}
+              {events &&
+                events
+                  .filter(event =>
+                    event.eventName.toLowerCase().includes(search.toLowerCase())
+                  )
+                  .map(event => <EventDashboard {...event} />)}
             </div>
           </div>
         </div>
@@ -70,15 +77,16 @@ const Landing = ({
 
 Landing.propTypes = {
   isAuthenticated: PropTypes.bool,
-  getEvents: PropTypes.func.isRequired
+  getEvents: PropTypes.func.isRequired,
+  filterbyname: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
-  console.log('state', state);
   return {
     isAuthenticated: state.auth.isAuthenticated,
-    event: state.event
+    event: state.event,
+    search: state.filterbyname.search
   };
 };
 
-export default connect(mapStateToProps, { getEvents })(Landing);
+export default connect(mapStateToProps, { getEvents, filterbyname })(Landing);

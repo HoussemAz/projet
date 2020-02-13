@@ -58,8 +58,9 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
               name='Last_name'
               value={Last_name}
               onChange={e => onChange(e)}
-            />
+            />{' '}
           </div>
+
           <div className='inputBox'>
             <input
               type='email'

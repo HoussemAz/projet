@@ -35,7 +35,7 @@ export default function(state = initialState, action) {
     case LOGIN_SUCCESS:
       localStorage.setItem('token', payload.token);
       localStorage.setItem('role', payload.role);
-      var decoded = jwt_decode(payload.token);
+      jwt_decode(payload.token);
 
       return {
         ...state,

@@ -1,13 +1,13 @@
 import { FILTERBYNAME } from '../actions/types';
 
 const initialState = {
-  filterbyname: ''
+  search: ''
 };
 const filterbyname = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case FILTERBYNAME:
-      return { ...state, filterbyname: payload };
+      return { ...state, search: payload };
     default:
       return state;
   }

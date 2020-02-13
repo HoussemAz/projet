@@ -31,7 +31,7 @@ const EventItem = ({
 }) => {
   return (
     <div className='event'>
-      <img src={poster} />
+      <img src={poster} alt='...' />
       <div className='info'>
         <h4>{eventName}</h4>
 
@@ -91,6 +91,15 @@ EventItem.defaultProps = {
   showActions: true
 };
 
+EventItem.propTypes = {
+  event: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  addLike: PropTypes.func.isRequired,
+  removeLike: PropTypes.func.isRequired,
+  deleteEvent: PropTypes.func.isRequired,
+  getEventById: PropTypes.func.isRequired
+};
+
 const mapStateToProps = state => ({
   auth: state.auth
 });
@@ -100,12 +109,3 @@ export default connect(mapStateToProps, {
   deleteEvent,
   getEventById
 })(EventItem);
-
-EventItem.propTypes = {
-  event: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
-  addLike: PropTypes.func.isRequired,
-  removeLike: PropTypes.func.isRequired,
-  deleteEvent: PropTypes.func.isRequired,
-  getEventById: PropTypes.func.isRequired
-};
